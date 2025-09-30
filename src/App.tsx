@@ -10,6 +10,10 @@ interface ProcessingError {
   message: string;
 }
 
+/**
+ * The main application component for the Invoice Scanner.
+ * It manages the state for file handling, conversion, progress, and errors.
+ */
 function App() {
   const [files, setFiles] = useState<File[]>([]);
   const [converting, setConverting] = useState(false);
@@ -18,6 +22,10 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [processingErrors, setProcessingErrors] = useState<Record<string, string>>({});
 
+  /**
+   * Handles the dropping of files onto the dropzone.
+   * @param acceptedFiles - An array of files accepted by the dropzone.
+   */
   const handleDrop = useCallback((acceptedFiles: File[]) => {
     if (converting) return;
     
@@ -27,6 +35,10 @@ function App() {
     setDownloadUrl(null);
   }, [converting]);
 
+  /**
+   * Handles the removal of a file from the list.
+   * @param fileToRemove - The file to be removed.
+   */
   const handleRemove = useCallback((fileToRemove: File) => {
     if (converting) return;
     
@@ -40,6 +52,10 @@ function App() {
     setDownloadUrl(null);
   }, [converting]);
 
+  /**
+   * Initiates the image conversion process.
+   * It processes each file, handles errors, and generates a CSV file for download.
+   */
   const handleConvert = async () => {
     if (!import.meta.env.VITE_TOGETHER_API_KEY) {
       setError('API key not configured. Please add VITE_TOGETHER_API_KEY to your environment.');
@@ -104,6 +120,9 @@ function App() {
     }
   };
 
+  /**
+   * Resets the application state to its initial values.
+   */
   const resetState = useCallback(() => {
     setFiles([]);
     setDownloadUrl(null);
