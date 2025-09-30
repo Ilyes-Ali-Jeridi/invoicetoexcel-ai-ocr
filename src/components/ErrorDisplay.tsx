@@ -5,6 +5,12 @@ interface ErrorDisplayProps {
   processingErrors: Record<string, string>;
 }
 
+/**
+ * A component that displays general errors and specific processing errors for files.
+ * @param {ErrorDisplayProps} props - The props for the component.
+ * @param {string | null} props.error - A general error message to display.
+ * @param {Record<string, string>} props.processingErrors - A map of filenames to their specific processing errors.
+ */
 export default function ErrorDisplay({ error, processingErrors }: ErrorDisplayProps) {
   if (!error && Object.keys(processingErrors).length === 0) {
     return null;

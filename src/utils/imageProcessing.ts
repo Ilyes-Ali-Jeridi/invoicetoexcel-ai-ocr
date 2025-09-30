@@ -2,6 +2,9 @@ import { performOCR } from '../services/togetherAI';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
+/**
+ * Represents a bank transaction with its details.
+ */
 export interface BankTransaction {
   dateOperation: string;
   libelle: string;
@@ -10,6 +13,12 @@ export interface BankTransaction {
   debit: string;
 }
 
+/**
+ * Processes an image file by validating its size, reading it as a base64 string,
+ * and sending it to the OCR service.
+ * @param file - The image file to process.
+ * @returns A promise that resolves with the cleaned OCR result as a CSV string.
+ */
 export async function processImage(file: File): Promise<string> {
   if (file.size > MAX_FILE_SIZE) {
     throw new Error(`File ${file.name} is too large. Maximum size is 10MB.`);
@@ -38,6 +47,12 @@ export async function processImage(file: File): Promise<string> {
   });
 }
 
+/**
+ * Cleans and formats the raw OCR text to ensure it is a valid CSV format.
+ * It adds headers if missing, standardizes date and number formats, and handles invalid lines.
+ * @param ocrText - The raw text extracted from the OCR process.
+ * @returns A cleaned, CSV-formatted string.
+ */
 function cleanOCRResult(ocrText: string): string {
   // Split the text into lines and remove empty lines
   const lines = ocrText

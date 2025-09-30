@@ -6,6 +6,13 @@ interface ConversionProgressProps {
   total: number;
 }
 
+/**
+ * A component that displays the progress of the image conversion process.
+ * It shows a progress bar and the number of items processed out of the total.
+ * @param {ConversionProgressProps} props - The props for the component.
+ * @param {number} props.progress - The number of items currently processed.
+ * @param {number} props.total - The total number of items to process.
+ */
 export default function ConversionProgress({ progress, total }: ConversionProgressProps) {
   const percentage = Math.round((progress / total) * 100);
 

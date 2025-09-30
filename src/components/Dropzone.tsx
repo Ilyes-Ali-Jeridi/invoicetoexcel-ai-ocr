@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, File, X } from 'lucide-react';
 
@@ -9,6 +9,15 @@ interface DropzoneProps {
   disabled?: boolean;
 }
 
+/**
+ * A component that provides a drag-and-drop zone for file uploads.
+ * It displays the list of selected files and allows for their removal.
+ * @param {DropzoneProps} props - The props for the component.
+ * @param {File[]} props.files - The list of files that have been selected.
+ * @param {(acceptedFiles: File[]) => void} props.onDrop - Callback function for when files are dropped.
+ * @param {(file: File) => void} props.onRemove - Callback function for when a file is removed.
+ * @param {boolean} [props.disabled=false] - Whether the dropzone is disabled.
+ */
 export default function Dropzone({ files, onDrop, onRemove, disabled = false }: DropzoneProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
